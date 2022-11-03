@@ -1,4 +1,3 @@
-require_relative "article"
 
 class Author
   attr_reader :name
@@ -6,6 +5,11 @@ class Author
 
 
   def initialize(name)
+    if name.is_a?(String)
+      @name = name
+    else
+      raise InitializationError
+    end
     @name = name
     @@all << self
   
@@ -27,5 +31,10 @@ class Author
 
   end
   def add_article(magazine, title)
+  end
+  class InitializationError < ArgumentError
+    def message
+      " Name should be a string"
+    end
 
 end

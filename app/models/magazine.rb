@@ -6,10 +6,15 @@ class Magazine
 
 
   def initialize(name, category)
-    @name = name
-    @category = category
-    @@all << self
+    if (name.is_a?(String) && category.is_a?(String))
+      @name = name
+      @category = category
+      @@all << self
+    else
+      raise InitializationError
+    end
   end
+
   def self.all
     @@all
   end
@@ -31,6 +36,10 @@ class Magazine
   def contributing_authors
     @@all.select{|article|article.contributors>2}
   end
+  class InitializationError < ArgumentError
+    def message
+      "Category and name should be a string"
+    end
 
 
 
